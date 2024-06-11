@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Calendar Event Link</title>
+</head>
+<body>
+    <a id="calendar-link" href="#" target="_blank" rel="noopener">+ Google Calendar</a>
+
+    <script>
+        function addDays(date, days) {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
+        function formatDate(date) {
+            const year = date.getUTCFullYear();
+            const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+            const day = String(date.getUTCDate()).padStart(2, '0');
+            const hours = String(date.getUTCHours()).padStart(2, '0');
+            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+            return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
+        }
+
+        const currentDate = new Date();
+        const startDate = addDays(currentDate, 7);
+        const endDate = addDays(startDate, 1); // Event duration of 1 day
+
+        const eventTitle = “Request Trial Account Conversion” ;
+        const eventLocation = "#xs-support”;
+        const eventDetails = “Post your trial account personalized URL to Slack #xs-support and request that it is converted to a permanent demo”;
+
+        const startDateString = formatDate(startDate);
+        const endDateString = formatDate(endDate);
+
+        const calendarUrl = `https://www.google.com/calendar/event?action=TEMPLATE&dates=${startDateString}/${endDateString}&text=${encodeURIComponent(eventTitle)}&location=${encodeURIComponent(eventLocation)}&details=${encodeURIComponent(eventDetails)}`;
+
+        document.getElementById('calendar-link').href = calendarUrl;
+    </script>
+</body>
+</html>
